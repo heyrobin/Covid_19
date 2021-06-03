@@ -26,8 +26,14 @@ group by location,population
 order by percentage_cases desc
 
 --countries with highest death counts(percentage)
-Select location,population as total_population, max(total_cases) as cases,MAX(total_deaths/population)*100 as percentage_deaths
+Select location,population as total_population, max(total_cases) as cases, MAX(total_deaths) as deaths, MAX(total_deaths/population)*100 as death_percentage
 From Project_cov_s_wave..Deaths$
 where continent is not null
 group by location,population
-order by percentage_deaths desc
+order by death_percentage  desc
+
+--countries total death counts per population
+select location, max(total_deaths) as Deaths
+from Project_cov_s_wave..Deaths$
+group by location
+order by Deaths desc
