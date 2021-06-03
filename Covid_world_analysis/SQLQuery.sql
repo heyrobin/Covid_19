@@ -33,7 +33,15 @@ group by location,population
 order by death_percentage  desc
 
 --countries total death counts per population
-select location, max(total_deaths) as Deaths
+select location, max(cast(total_deaths as int)) as Deaths
 from Project_cov_s_wave..Deaths$
+where continent is not null
 group by location
+order by Deaths desc
+
+--continent total death counts
+select continent, max(convert(int,total_deaths)) as Deaths
+from Project_cov_s_wave..Deaths$
+where continent is not null
+group by continent
 order by Deaths desc
