@@ -45,3 +45,31 @@ from Project_cov_s_wave..Deaths$
 where continent is not null
 group by continent
 order by Deaths desc
+
+--global numbers dates
+Select date,sum(new_cases) as cases,sum(cast(new_deaths as int)) as deaths, sum(cast(new_deaths as int))/sum(new_cases)*100 as percentage_deaths
+from Project_cov_s_wave..Deaths$
+where continent is not null
+group by date
+order by 1,2
+
+
+--check
+Select *
+from Project_cov_s_wave..Deaths$
+order by new_cases desc
+
+--global numbers 
+Select sum(new_cases) as cases,sum(cast(new_deaths as int)) as deaths, sum(cast(new_deaths as int))/sum(new_cases)*100 as percentage_deaths
+from Project_cov_s_wave..Deaths$
+where continent is not null
+--group by date
+order by 1,2
+
+
+-- joining tables
+Select *
+from Project_cov_s_wave..Deaths$ D
+join Project_cov_s_wave..Vaccine$ V
+	on D.location = V.location
+	and D.date = v.date
