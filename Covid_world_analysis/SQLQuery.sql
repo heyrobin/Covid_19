@@ -102,3 +102,18 @@ join Project_cov_s_wave..Vaccine$ V
 	where D.continent is not null and people_fully_vaccinated is null
 	Group by D.location
 	order by population desc
+
+
+Select dea.continent, dea.location, dea.date, dea.population, vac.new_vaccinations
+, SUM(CONVERT(int,vac.new_vaccinations)) OVER (Partition by dea.Location Order by dea.location, dea.Date) as RollingPeopleVaccinated
+--, (RollingPeopleVaccinated/population)*100
+From Deaths$ dea
+Join Project_cov_s_wave..Vaccine$ vac
+	On dea.location = vac.location 
+	and dea.date = vac.date
+where dea.continent is not null 
+order by 2,3
+
+
+
+
