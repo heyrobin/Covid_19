@@ -73,3 +73,32 @@ from Project_cov_s_wave..Deaths$ D
 join Project_cov_s_wave..Vaccine$ V
 	on D.location = V.location
 	and D.date = v.date
+
+
+--total amount of people in the world vaccinated
+Select D.location, max(D.population) as population, 
+max(total_cases) as cases,
+max(convert(int,V.people_fully_vaccinated)) as vaccinated, 
+max(convert(int,V.people_fully_vaccinated))/max(population)*100 as percentage
+
+From Project_cov_s_wave..Deaths$ D
+join Project_cov_s_wave..Vaccine$ V
+	on D.location = V.location
+	and D.date = v.date
+	where D.continent is not null --and D.location = 'albania'
+	Group by D.location
+	order by population desc
+
+--china vacccination checker
+Select D.location, max(D.population) as population, 
+max(total_cases) as cases,
+max(convert(int,V.people_fully_vaccinated)) as vaccinated, 
+max(convert(int,V.people_fully_vaccinated))/max(population)*100 as percentage
+
+From Project_cov_s_wave..Deaths$ D
+join Project_cov_s_wave..Vaccine$ V
+	on D.location = V.location
+	and D.date = v.date
+	where D.continent is not null and people_fully_vaccinated is null
+	Group by D.location
+	order by population desc
