@@ -1,0 +1,2 @@
+Covid Data - https://api.covid19india.org/
+Population Data -https://statisticstimes.com/demographics/india/indian-states-population.php
